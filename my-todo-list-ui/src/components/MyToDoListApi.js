@@ -7,22 +7,27 @@ export const myToDoListApi = {
     updateToDo
 }
 
-function getToDos() {
-    return instance.get('/api/todos')
+function getToDos(access_token) {
+    return instance.get('/api/todos', {
+        headers: { 'Authorization': `Bearer ${access_token}` }
+    })
 }
-
-function addToDo(addToDoRequest) {
+function addToDo(addToDoRequest, access_token) {
     return instance.post('/api/todos', addToDoRequest, {
-        headers: { 'Content-type': 'application/json' }
+        headers: { 'Content-type': 'application/json', 'Authorization': `Bearer ${access_token}` }
     })
 }
 
-function deleteToDo(id) {
-    return instance.delete(`/api/todos/${id}`)
+function deleteToDo(id, access_token) {
+    return instance.delete(`/api/todos/${id}`, {
+        headers: { 'Authorization': `Bearer ${access_token}` }
+    })
 }
 
-function updateToDo(id, completed) {
-    return instance.patch(`/api/todos/${id}?completed=${completed}`)
+function updateToDo(id, completed, access_token) {
+    return instance.patch(`/api/todos/${id}?completed=${completed}`, {}, {
+        headers: { 'Authorization': `Bearer ${access_token}` }
+    })
 }
 
 // -- Axios
